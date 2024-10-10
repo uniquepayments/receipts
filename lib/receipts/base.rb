@@ -1,9 +1,9 @@
 module Receipts
   class Base < Prawn::Document
-    attr_accessor :title, :company
+    attr_accessor :title, :subtitle, :company
 
     class << self
-      attr_reader :title
+      attr_reader :title, :subtitle
     end
 
     def initialize(attributes = {})
@@ -11,7 +11,7 @@ module Receipts
       setup_fonts attributes.fetch(:font, Receipts.default_font)
 
       @title = attributes.fetch(:title, self.class.title)
-
+      @subtitle = attributes.fetch(:subtitle, self.class.subtitle)
       generate_from(attributes)
     end
 
@@ -56,7 +56,8 @@ module Receipts
       end
 
       move_up height
-      text title, style: :bold, size: 16
+      text title, style: :bold, size: 32
+      text subttitle, style: :bold, size: 16, color: "333333"
     end
 
     def render_details(details, margin_top: 16)
@@ -72,8 +73,8 @@ module Receipts
 
       line_items = [
         [
-          {content: "<b>#{company.fetch(:name)}</b>\n#{company_details}", padding: [0, 12, 0, 0]},
-          {content: Array(recipient).join("\n"), padding: [0, 12, 0, 0]}
+          {content: "<b>#{company.fetch(:name)}</b>\n#{company_details}", padding: [0, 12, 2, 0]},
+          {content: Array(recipient).join("\n"), padding: [0, 13, 2, 0]}
         ]
       ]
       table(line_items, width: bounds.width, cell_style: {borders: [], inline_format: true, overflow: :expand})
@@ -91,6 +92,8 @@ module Receipts
       }.compact
 
       table(line_items, table_options) do
+        row(0).font_style = :bold
+        row(0).background_color = '3C3D3A'
         cells.padding = 6
         cells.borders = []
         row(0..borders).borders = [:bottom]
