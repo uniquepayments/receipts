@@ -81,7 +81,7 @@ module Receipts
 
       line_items = [
         [
-          {content: "<b>#{company.fetch(:seller_key)}</b>\n<b>#{company.fetch(:name)}</b>\n#{company_details}", padding: [2, 12, 3, 2]},
+          {content: "<b>#{company.fetch(:seller_key)}</b>\n<b>#{company.fetch(:name)}</b>\n#{company_details}\n\n#{company.fetch(:iban_text)}", padding: [2, 12, 3, 2]},
           {content: Array(recipient).join("\n"), padding: [2, 12, 3, 2]}
         ]
       ]
