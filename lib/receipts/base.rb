@@ -164,14 +164,14 @@ module Receipts
       # First bounding box
       bounding_box([0, y_position], width: (bounds.width / 2) - (gap / 2), height: 50) do
         stroke_bounds
-        text_box company.fetch(:collection_signature_text), at: [8, 18], width: (bounds.width / 2) - (gap / 2), height: 20, align: :left
+        text_box company.fetch(:collection_signature_text, ''), at: [8, 18], width: (bounds.width / 2) - (gap / 2), height: 20, align: :left
       end
 
       # Second bounding box, positioned to the right of the first one with a gap
       bounding_box([(bounds.width / 2) + (gap / 2), y_position], width: (bounds.width / 2) - (gap / 2), height: 50) do
         stroke_bounds
-        text_box company.fetch(:fullname_person_invoice_issuer), at: [8, 35], width: (bounds.width / 2) - (gap / 2) - 10, height: 20, size: 8, align: :left, inline_format: true
-        text_box company.fetch(:issuer_signature_text), at: [8, 18], width: (bounds.width / 2) - (gap / 2) - 10, height: 20, align: :left, inline_format: true
+        text_box company.fetch(:fullname_person_invoice_issuer, ''), at: [8, 35], width: (bounds.width / 2) - (gap / 2) - 10, height: 20, size: 8, align: :left, inline_format: true
+        text_box company.fetch(:issuer_signature_text, ''), at: [8, 18], width: (bounds.width / 2) - (gap / 2) - 10, height: 20, align: :left, inline_format: true
       end
 
     end
@@ -182,7 +182,9 @@ module Receipts
     end
 
     def default_message(company:)
-      "#{company.fetch(:contact_text)} <color rgb='326d92'><link href='mailto:#{company.fetch(:email)}'><b>#{company.fetch(:email)}</b></link></color>."
+      if company.fetch(:email,'').present?
+        "#{company.fetch(:contact_text, 'Contact us:')}<color rgb='326d92'><link href='mailto:#{company.fetch(:email,'')}'><b>#{company.fetch(:email,'')}</b></link></color>."
+      end
     end
   end
 end
