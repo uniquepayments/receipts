@@ -164,14 +164,20 @@ module Receipts
       # First bounding box
       bounding_box([0, y_position], width: (bounds.width / 2) - (gap / 2), height: 50) do
         stroke_bounds
-        text_box company.fetch(:collection_signature_text, ''), at: [8, 18], width: (bounds.width / 2) - (gap / 2), height: 20, align: :left
+        if company.fetch(:collection_signature_text, '').present?
+          text_box company.fetch(:collection_signature_text, ''), at: [8, 18], width: (bounds.width / 2) - (gap / 2), height: 20, align: :left
+        end
       end
 
       # Second bounding box, positioned to the right of the first one with a gap
       bounding_box([(bounds.width / 2) + (gap / 2), y_position], width: (bounds.width / 2) - (gap / 2), height: 50) do
         stroke_bounds
-        text_box company.fetch(:fullname_person_invoice_issuer, ''), at: [8, 35], width: (bounds.width / 2) - (gap / 2) - 10, height: 20, size: 8, align: :left, inline_format: true
-        text_box company.fetch(:issuer_signature_text, ''), at: [8, 18], width: (bounds.width / 2) - (gap / 2) - 10, height: 20, align: :left, inline_format: true
+        if company.fetch(:fullname_person_invoice_issuer, '').present?
+          text_box company.fetch(:fullname_person_invoice_issuer, ''), at: [8, 35], width: (bounds.width / 2) - (gap / 2) - 10, height: 20, size: 8, align: :left, inline_format: true
+        end
+        if company.fetch(:issuer_signature_text, '').present?
+          text_box company.fetch(:issuer_signature_text, ''), at: [8, 18], width: (bounds.width / 2) - (gap / 2) - 10, height: 20, align: :left, inline_format: true
+        end
       end
 
     end
