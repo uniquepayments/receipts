@@ -188,8 +188,8 @@ module Receipts
     end
 
     def default_message(company:)
-      if company['invoice_note'].present?
-        "#{company['invoice_note']}<br><br>"
+      if company.fetch(:invoice_note, '').present?
+        "#{company.fetch(:invoice_note, '')}<br><br>"
       end
       if company.fetch(:email,'').present?
         "#{company.fetch(:contact_text, 'Contact us:')}<color rgb='326d92'><link href='mailto:#{company.fetch(:email,'')}'><b>#{company.fetch(:email,'')}</b></link></color>."
