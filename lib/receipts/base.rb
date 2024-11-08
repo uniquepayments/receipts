@@ -88,7 +88,7 @@ module Receipts
       table(line_items, width: bounds.width, cell_style: {borders: [], inline_format: true, overflow: :expand, padding: [0, 12, 2, 0]})
     end
 
-    def render_line_items(line_items:, margin_top: 30, column_widths: nil)
+    def render_line_items(line_items:, margin_top: 20, column_widths: nil)
       move_down margin_top
 
       borders = line_items.length - 2
@@ -154,7 +154,7 @@ module Receipts
       text total_text_in_words, size: 10, align: :right, background_color: 'F5F4F3', color: '333333'
     end
 
-    def render_signature(company:, margin_top: 30)
+    def render_signature(company:, margin_top: 20)
       move_down margin_top
       gap = 20
 
@@ -162,7 +162,7 @@ module Receipts
       y_position = cursor
 
       # First bounding box
-      bounding_box([0, y_position], width: (bounds.width / 2) - (gap / 2), height: 50) do
+      bounding_box([0, y_position], width: (bounds.width / 2) - (gap / 2), height: 40) do
         stroke_bounds
         if company.fetch(:collection_signature_text, '').present?
           text_box company.fetch(:collection_signature_text, ''), at: [8, 18], width: (bounds.width / 2) - (gap / 2), height: 20, align: :left
@@ -170,7 +170,7 @@ module Receipts
       end
 
       # Second bounding box, positioned to the right of the first one with a gap
-      bounding_box([(bounds.width / 2) + (gap / 2), y_position], width: (bounds.width / 2) - (gap / 2), height: 50) do
+      bounding_box([(bounds.width / 2) + (gap / 2), y_position], width: (bounds.width / 2) - (gap / 2), height: 40) do
         stroke_bounds
         if company.fetch(:fullname_person_invoice_issuer, '').present?
           text_box company.fetch(:fullname_person_invoice_issuer, ''), at: [8, 35], width: (bounds.width / 2) - (gap / 2) - 10, height: 20, size: 8, align: :left, inline_format: true
