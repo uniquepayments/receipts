@@ -88,7 +88,7 @@ module Receipts
       table(line_items, width: bounds.width, cell_style: {borders: [], inline_format: true, overflow: :expand, padding: [0, 12, 2, 0]})
     end
 
-    def render_line_items(line_items:, margin_top: 20, column_widths: nil)
+    def render_line_items(line_items:, margin_top: 15, column_widths: nil)
       move_down margin_top
 
       borders = line_items.length - 2
@@ -109,7 +109,7 @@ module Receipts
       end
     end
 
-    def render_totals(total_items:, margin_top: 30, column_widths: nil)
+    def render_totals(total_items:, margin_top: 25, column_widths: nil)
       move_down margin_top
 
       # Define the payment table with a single cell
@@ -154,7 +154,7 @@ module Receipts
       text total_text_in_words, size: 10, align: :right, background_color: 'F5F4F3', color: '333333'
     end
 
-    def render_signature(company:, margin_top: 20)
+    def render_signature(company:, margin_top: 17)
       move_down margin_top
       gap = 20
 
@@ -182,7 +182,7 @@ module Receipts
 
     end
 
-    def render_footer(message, margin_top: 30)
+    def render_footer(message, margin_top: 25)
       move_down margin_top
       text message, inline_format: true
     end
